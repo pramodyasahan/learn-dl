@@ -24,3 +24,7 @@ model = tf.keras.models.Sequential()
 model.add(tf.keras.layers.Dense(units=6, activation='relu'))
 model.add(tf.keras.layers.Dense(units=6, activation='relu'))
 model.add(tf.keras.layers.Dense(units=1, activation='sigmoid'))
+
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+model.fit(X_train, y_train, epochs=100, batch_size=32)
+
