@@ -20,3 +20,6 @@ cnn.add(tf.keras.layers.MaxPooling2D(pool_size=2, strides=2))
 cnn.add(tf.keras.layers.Flatten())
 cnn.add(tf.keras.layers.Dense(units=128, activation='relu'))
 cnn.add(tf.keras.layers.Dense(units=1, activation='sigmoid'))
+
+cnn.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+cnn.fit_generator(x=train_generator, validation_data=validation_generator, epochs=25)
