@@ -16,3 +16,7 @@ cnn.add(tf.keras.layers.Conv2D(filters=32, kernel_size=3, activation='relu', inp
 cnn.add(tf.keras.layers.MaxPooling2D(pool_size=2, strides=2))
 cnn.add(tf.keras.layers.Conv2D(filters=32, kernel_size=3, activation='relu'))
 cnn.add(tf.keras.layers.MaxPooling2D(pool_size=2, strides=2))
+
+cnn.add(tf.keras.layers.Flatten())
+cnn.add(tf.keras.layers.Dense(units=128, activation='relu'))
+cnn.add(tf.keras.layers.Dense(units=1, activation='sigmoid'))
