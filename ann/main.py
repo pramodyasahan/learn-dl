@@ -9,4 +9,5 @@ dataset = pd.read_csv('Churn_Modelling.csv')
 X = dataset.iloc[:, 3:-1].values
 y = dataset.iloc[:, -1].values
 
-
+le = LabelEncoder()
+X[:, 2] = le.fit_transform(X[:, 2])
