@@ -1,5 +1,7 @@
 import tensorflow as tf
+import numpy as np
 from keras.preprocessing.image import ImageDataGenerator
+from keras.preprocessing import image
 
 train_datagen = ImageDataGenerator(rescale=1. / 255, shear_range=0.2, zoom_range=0.2, horizontal_flip=True)
 train_generator = train_datagen.flow_from_directory(
@@ -22,4 +24,15 @@ cnn.add(tf.keras.layers.Dense(units=128, activation='relu'))
 cnn.add(tf.keras.layers.Dense(units=1, activation='sigmoid'))
 
 cnn.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-cnn.fit_generator(x=train_generator, validation_data=validation_generator, epochs=25)
+cnn.fit_generator(train_generator, validation_data=validation_generator, epochs=25)
+
+test_image = image.load_img('cat.jpg', target_size=(64, 64))
+test_image = image.img_to_array(test_image)
+test_image = np.expand_dims(test_image, axis=0)
+result = cnn.predict(test_image)
+train_generator.class_indices
+if result[0][0] == 1:
+    prediction = 'dog'
+else:
+    prediction = 'cat'
+print(prediction)
