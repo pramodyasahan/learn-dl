@@ -4,6 +4,7 @@ import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, LabelEncoder, OneHotEncoder
 from sklearn.compose import ColumnTransformer
+from sklearn.metrics import confusion_matrix, accuracy_score
 
 dataset = pd.read_csv('Churn_Modelling.csv')
 X = dataset.iloc[:, 3:-1].values
@@ -28,3 +29,9 @@ model.add(tf.keras.layers.Dense(units=1, activation='sigmoid'))
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 model.fit(X_train, y_train, epochs=100, batch_size=32)
 
+y_pred = model.predict(X_test)
+y_pred = (y_pred > 0.5)
+print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),1)),1))
+cm = confusion_matrix(y_test, y_pred)
+print(cm)
+accuracy_score(y_test, y_pred)
